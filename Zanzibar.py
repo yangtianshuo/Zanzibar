@@ -1,9 +1,22 @@
-#Tianshuo Yang
-#Zanzibar dice game
+'''
+Zanzibar
+
+Game rules:
+Player and computer each starts with 20 chips. On player's turn, they roll three six-sided dice. The first player of a round may choose to reroll up to two additional times, taking the 
+best roll. Subsequent player may only roll as many times as the first. The best roll is a 4-5-6. Then three of a kind. The next best roll is 1-2-3. Other hands are scored by the sum of 
+the scores of each die with the following scale:
+1 = 100 points
+6 = 60 points
+2 = 2 points
+3 = 3 points
+4 = 4 points
+5 = 5 points
+The player with the lowest score loses, and takes chips from the other player based on the winning roll: 1 chip normally, 2 chips if winning roll was 1-2-3, 3 chips if winning roll was 
+three of a kind, and 4 chips if winning roll was 4-5-6. The winner goes first for the next round. The first player to run out of chips wins.
+'''
 
 import random as r
 
-#Turn function
 def determine_turn():
     while True:
         try:
@@ -16,7 +29,8 @@ def determine_turn():
             else:
                 return False
 
-#Roll function
+#Roll 3 dices
+#Return the roll
 def roll_func():
     roll = []
     dice1 = r.randint(1,6)
@@ -26,7 +40,8 @@ def roll_func():
     roll.sort()
     return roll
 
-#
+#Assign a type to each roll
+#Return roll type
 def roll_type_func(roll):
     if roll == [4,5,6]:
         roll_type = 4
@@ -38,7 +53,8 @@ def roll_type_func(roll):
         roll_type = 1
     return roll_type
 
-#
+#Assign points based on roll
+#Return the number of points
 def roll_type1(roll):
     points = 0
     for i in range(len(roll)):
@@ -56,8 +72,8 @@ def roll_type1(roll):
             points += 5
     return points
 
-#
-
+#Play one round of the game
+#Return the results of one round
 def one_round(turn):
     player_roll_types = []
     computer_roll_types = []
@@ -114,7 +130,6 @@ def one_round(turn):
             player_roll_types.append(roll_type)
     return player_roll_types,computer_roll_types,player_points,computer_points
 
-#
 def game_func():
     round_num = 1
     player_chips = 20
